@@ -1,6 +1,4 @@
 import express, { Application, Request, Response } from "express";
-
-import { specialtyRouter } from "./app/module/specialty/specialty.route";
 import { prisma } from "./app/lib/prisma";
 import { IndexRoutes } from "./app/routes";
 // import { prisma } from "./app/lib/prisma";
