@@ -171,6 +171,28 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DoctorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  profilePhoto: 'profilePhoto',
+  contactNumber: 'contactNumber',
+  address: 'address',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
+  registrationNumber: 'registrationNumber',
+  experience: 'experience',
+  gender: 'gender',
+  appointmentFee: 'appointmentFee',
+  qualification: 'qualification',
+  currentWorkingPlace: 'currentWorkingPlace',
+  designation: 'designation',
+  averageRating: 'averageRating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
 exports.Prisma.PatientScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -194,6 +216,12 @@ exports.Prisma.SpecialtyScalarFieldEnum = {
   updatedAt: 'updatedAt',
   isDeleted: 'isDeleted',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.DoctorSpecialtyScalarFieldEnum = {
+  id: 'id',
+  doctorId: 'doctorId',
+  specialtyId: 'specialtyId'
 };
 
 exports.Prisma.SortOrder = {
@@ -223,13 +251,20 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   ACTIVE: 'ACTIVE'
 };
 
+exports.Gender = exports.$Enums.Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
+  Doctor: 'Doctor',
   Patient: 'Patient',
-  Specialty: 'Specialty'
+  Specialty: 'Specialty',
+  DoctorSpecialty: 'DoctorSpecialty'
 };
 
 /**
