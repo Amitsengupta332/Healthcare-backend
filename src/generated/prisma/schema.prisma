@@ -13,6 +13,7 @@ model User {
   updatedAt          DateTime   @updatedAt
   sessions           Session[]
   accounts           Account[]
+  patients           Patient?
 
   @@unique([email])
   @@map("user")
@@ -77,6 +78,28 @@ enum UserStatus {
   BLOCKED
   DELETED
   ACTIVE
+}
+
+model Patient {
+  id            String    @id @default(uuid(7))
+  name          String
+  email         String    @unique
+  profilePhoto  String?
+  contactNumber String?
+  address       String?
+  isDeleted     Boolean   @default(false)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relations
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([email], name: "idx_patient_email")
+  @@index([isDeleted], name: "idx_patient_isDeleted")
+  @@map("patient")
 }
 
 // This is your Prisma schema file,
