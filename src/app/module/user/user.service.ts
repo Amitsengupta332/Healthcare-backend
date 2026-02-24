@@ -12,22 +12,22 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
         id: specialtyId,
       },
     });
-
     if (!specialty) {
       throw new Error(`Specialty with id ${specialtyId} not found`);
+      // throw new AppError(status.NOT_FOUND, `Specialty with id ${specialtyId} not found`);
     }
-
     specialties.push(specialty);
   }
 
-  const userExist = await prisma.user.findUnique({
+  const userExists = await prisma.user.findUnique({
     where: {
       email: payload.doctor.email,
     },
   });
 
-  if (userExist) {
+  if (userExists) {
     throw new Error("User with this email already exists");
+    // throw new AppError(status.CONFLICT, "User with this email already exists");
   }
 
   const userData = await auth.api.signUpEmail({
@@ -111,6 +111,8 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
 
       return doctor;
     });
+
+    return result;
   } catch (error) {
     console.log("Transaction error : ", error);
     await prisma.user.delete({
