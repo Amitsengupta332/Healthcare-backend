@@ -18,21 +18,27 @@ app.use("/api/v1", IndexRoutes);
 // app.use("/api/v1/specialties", specialtyRouter);
 
 // Basic route
+// app.get("/", async (req: Request, res: Response) => {
+//   const specialty = await prisma.specialty.create({
+//     data: {
+//       title: "Cardiology",
+//     },
+//   });
+//   res.status(201).json({
+//     success: true,
+//     message: "API is working",
+//     data: specialty,
+//   });
+// });
+
 app.get("/", async (req: Request, res: Response) => {
-  const specialty = await prisma.specialty.create({
-    data: {
-      title: "Cardiology",
-    },
-  });
   res.status(201).json({
     success: true,
     message: "API is working",
-    data: specialty,
   });
 });
 
-
 app.use(globalErrorHandler);
-app.use(notFound)
+app.use(notFound);
 
 export default app;
