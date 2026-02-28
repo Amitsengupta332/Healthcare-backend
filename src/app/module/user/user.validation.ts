@@ -60,3 +60,15 @@ export const createDoctorZodSchema = z.object({
     .array(z.uuid(), "Specialties must be an array of strings")
     .min(1, "At least one specialty is required"),
 });
+
+
+export interface ICreateAdminPayload {
+    password: string;
+    admin: {
+        name: string;
+        email: string;
+        profilePhoto?: string;
+        contactNumber?: string;
+    }
+    role: "ADMIN" | "SUPER_ADMIN";
+}
