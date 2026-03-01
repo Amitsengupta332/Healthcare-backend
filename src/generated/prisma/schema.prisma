@@ -8,9 +8,8 @@ model Admin {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   deletedAt     DateTime?
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([email])
   @@index([isDeleted])
@@ -24,19 +23,15 @@ model Appointment {
   paymentStatus  PaymentStatus     @default(UNPAID)
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
-
-  patientId String
-  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
-
-  scheduleId String
-  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-
-  prescription Prescription?
-  review       Review?
-  payment      Payment?
+  patientId      String
+  doctorId       String
+  scheduleId     String
+  doctor         Doctor            @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  patient        Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  schedule       Schedule          @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  payment        Payment?
+  prescription   Prescription?
+  review         Review?
 
   @@index([patientId])
   @@index([doctorId])
@@ -48,30 +43,29 @@ model Appointment {
 model User {
   id                 String     @id
   name               String
-  email              String
+  email              String     @unique
   emailVerified      Boolean    @default(false)
-  role               Role       @default(PATIENT)
-  status             UserStatus @default(ACTIVE)
-  needPasswordChange Boolean    @default(false)
-  isDeleted          Boolean    @default(false)
-  deletedAt          DateTime?
   image              String?
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-  sessions           Session[]
+  deletedAt          DateTime?
+  isDeleted          Boolean    @default(false)
+  needPasswordChange Boolean    @default(false)
+  role               Role       @default(PATIENT)
+  status             UserStatus @default(ACTIVE)
   accounts           Account[]
-  patients           Patient?
-  doctors            Doctor?
   admin              Admin?
+  doctors            Doctor?
+  patients           Patient?
+  sessions           Session[]
 
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id        String   @id
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ipAddress String?
@@ -79,7 +73,6 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@index([userId])
   @@map("session")
 }
@@ -89,7 +82,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -99,6 +91,7 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("account")
@@ -117,40 +110,34 @@ model Verification {
 }
 
 model Doctor {
-  id String @id @default(uuid(7))
-
-  name          String
-  email         String    @unique
-  profilePhoto  String?
-  contactNumber String?
-  address       String?
-  isDeleted     Boolean   @default(false)
-  deletedAt     DateTime?
-
-  registrationNumber  String @unique
-  experience          Int    @default(0)
+  id                  String            @id @default(uuid(7))
+  name                String
+  email               String            @unique
+  profilePhoto        String?
+  contactNumber       String?
+  address             String?
+  isDeleted           Boolean           @default(false)
+  deletedAt           DateTime?
+  registrationNumber  String            @unique
+  experience          Int               @default(0)
   gender              Gender
   appointmentFee      Float
   qualification       String
   currentWorkingPlace String
   designation         String
-  averageRating       Float  @default(0.0)
+  averageRating       Float             @default(0.0)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  userId              String            @unique
+  appointments        Appointment[]
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doctorSchedules     DoctorSchedules[]
+  specialties         DoctorSpecialty[]
+  prescriptions       Prescription[]
+  reviews             Review[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relationships
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  specialties     DoctorSpecialty[]
-  appointments    Appointment[]
-  prescriptions   Prescription[]
-  reviews         Review[]
-  doctorSchedules DoctorSchedules[]
-
-  @@index([email], name: "idx_doctor_email")
-  @@index([isDeleted], name: "idx_doctor_isDeleted")
+  @@index([email], map: "idx_doctor_email")
+  @@index([isDeleted], map: "idx_doctor_isDeleted")
   @@map("doctor")
 }
 
@@ -202,39 +189,34 @@ model MedicalReport {
   reportLink String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-
-  patientId String
-  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@index([patientId])
   @@map("medical_reports")
 }
 
 model Patient {
-  id            String    @id @default(uuid(7))
-  name          String
-  email         String    @unique
-  profilePhoto  String?
-  contactNumber String?
-  address       String?
-  isDeleted     Boolean   @default(false)
-  deletedAt     DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  // relations
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+  id                String             @id @default(uuid(7))
+  name              String
+  email             String             @unique
+  profilePhoto      String?
+  contactNumber     String?
+  address           String?
+  isDeleted         Boolean            @default(false)
+  deletedAt         DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  userId            String             @unique
   appointments      Appointment[]
-  prescriptions     Prescription[]
   medicalReports    MedicalReport[]
-  reviews           Review[]
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   patientHealthData PatientHealthData?
+  prescriptions     Prescription[]
+  reviews           Review[]
 
-  @@index([email], name: "idx_patient_email")
-  @@index([isDeleted], name: "idx_patient_isDeleted")
+  @@index([email], map: "idx_patient_email")
+  @@index([isDeleted], map: "idx_patient_isDeleted")
   @@map("patient")
 }
 
@@ -258,9 +240,8 @@ model PatientHealthData {
   maritalStatus       String?
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
-
-  patientId String  @unique
-  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId           String     @unique
+  patient             Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@index([patientId])
   @@map("patient_health_data")
@@ -274,9 +255,8 @@ model Payment {
   paymentGatewayData Json?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
-
-  appointmentId String      @unique
-  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  appointmentId      String        @unique
+  appointment        Appointment   @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
 
   @@index([appointmentId])
   @@index([transactionId])
@@ -284,20 +264,17 @@ model Payment {
 }
 
 model Prescription {
-  id           String   @id @default(uuid(7))
-  followUpDate DateTime
-  instructions String   @db.Text
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
+  id            String      @id @default(uuid(7))
+  followUpDate  DateTime
+  instructions  String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   appointmentId String      @unique
-  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  patientId String
-  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  patientId     String
+  doctorId      String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  doctor        Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  patient       Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@index([appointmentId])
   @@index([patientId])
@@ -306,20 +283,17 @@ model Prescription {
 }
 
 model Review {
-  id        String   @id @default(uuid(7))
-  rating    Float    @default(0.0)
-  comment   String?  @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id            String      @id @default(uuid(7))
+  rating        Float       @default(0.0)
+  comment       String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   appointmentId String      @unique
+  patientId     String
+  doctorId      String
   appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
-
-  patientId String
-  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctor        Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  patient       Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@index([appointmentId])
   @@index([patientId])
@@ -335,22 +309,20 @@ model Schedule {
   endTime         DateTime
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  doctorSchedules DoctorSchedules[]
   appointments    Appointment[]
+  doctorSchedules DoctorSchedules[]
 
   @@map("schedules")
 }
 
 model DoctorSchedules {
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+  doctorId   String
   scheduleId String
-  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  isBooked  Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  isBooked   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  doctor     Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
 
   @@id([doctorId, scheduleId])
   @@index([doctorId])
@@ -358,57 +330,40 @@ model DoctorSchedules {
   @@map("doctor_schedules")
 }
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-// generator client {
-//   provider = "prisma-client"
-//   output   = "../generated/prisma"
-// }
-
 generator client {
   provider = "prisma-client-js"
   output   = "../../src/generated/prisma"
 }
-
-// output   = "../generated/prisma"
 
 datasource db {
   provider = "postgresql"
 }
 
 model Specialty {
-  id String @id @default(uuid(7))
-
-  title       String  @unique @db.VarChar(100)
-  description String? @db.Text
-  icon        String? @db.VarChar(255)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id                String            @id @default(uuid(7))
+  title             String            @unique @db.VarChar(100)
+  description       String?
+  icon              String?           @db.VarChar(255)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
   isDeleted         Boolean           @default(false)
   deletedAt         DateTime?
   doctorSpecialties DoctorSpecialty[]
 
-  @@index([isDeleted], name: "idx_specialty_isDeleted")
-  @@index([title], name: "idx_specialty_title")
+  @@index([isDeleted], map: "idx_specialty_isDeleted")
+  @@index([title], map: "idx_specialty_title")
   @@map("specialties")
 }
 
 model DoctorSpecialty {
-  id          String @id @default(uuid(7))
+  id          String    @id @default(uuid(7))
   doctorId    String
   specialtyId String
-
-  doctor    Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  specialty Specialty @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctor      Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  specialty   Specialty @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
 
   @@unique([doctorId, specialtyId])
-  @@index([doctorId], name: "idx_doctor_specialty_doctorId")
-  @@index([specialtyId], name: "idx_doctor_specialty_specialtyId")
+  @@index([doctorId], map: "idx_doctor_specialty_doctorId")
+  @@index([specialtyId], map: "idx_doctor_specialty_specialtyId")
   @@map("doctor_specialties")
 }
