@@ -180,6 +180,7 @@ const logoutUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const verifyEmail = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body)
   const { email, otp } = req.body;
   await AuthService.verifyEmail(email, otp);
 
