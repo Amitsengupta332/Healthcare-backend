@@ -1,19 +1,29 @@
 import { Specialty } from "../../../generated/prisma";
 import { prisma } from "../../lib/prisma";
 
+// const createSpecialty = async (payload: Specialty): Promise<Specialty> => {
+//   // const specialty = await prisma.specialty.create({
+//   //   data: payload,
+//   // });
+
+//   const specialty = await prisma.specialty.create({
+//     data: {
+//       title: payload.title,
+//     },
+//   });
+
+//   return specialty;
+// };
+
 const createSpecialty = async (payload: Specialty): Promise<Specialty> => {
-  // const specialty = await prisma.specialty.create({
-  //   data: payload,
-  // });
+    // throw new Error("Testing error handling in create specialty service");
+    const specialty = await prisma.specialty.create({
+        data: payload
+    })
 
-  const specialty = await prisma.specialty.create({
-    data: {
-      title: payload.title,
-    },
-  });
+    return specialty;
 
-  return specialty;
-};
+}
 
 const getAllSpecialties = async (): Promise<Specialty[]> => {
   const specialties = await prisma.specialty.findMany();
