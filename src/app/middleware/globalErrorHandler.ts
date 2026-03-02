@@ -5,8 +5,9 @@ import z from "zod";
 import { TErrorResponse, TErrorSources } from "../interfaces/error.interface";
 import { handleZodError } from "../errorHelpers/handleZodError";
 import AppError from "../errorHelpers/AppError";
+import { deleteFileFromCloudinary } from "../config/cloudinary.config";
 
-export const globalErrorHandler = (
+export const globalErrorHandler = async (
   err: any,
   req: Request,
   res: Response,
@@ -14,6 +15,15 @@ export const globalErrorHandler = (
 ) => {
   if (envVars.NODE_ENV === "development") {
     console.log("Error from Global Error Handler", err);
+  }
+
+  if (req.file) {
+    await deleteFileFromCloudinary(req.file.path);
+  }
+
+  if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+    const imageUrls = req.files.map((file) => file.path);
+    await Promise.all(imageUrls.map((url) => deleteFileFromCloudinary(url)));
   }
 
   let errorSources: TErrorSources[] = [];
@@ -39,20 +49,6 @@ export const globalErrorHandler = (
       }
     ] 
     */
-  // if (err instanceof z.ZodError) {
-  //   const simplifiedError = handleZodError(err);
-  //   statusCode = status.BAD_REQUEST;
-  //   message = "Zod Validation Error!";
-
-  //   err.issues.forEach((issue) => {
-  //     errorSources.push({
-  //       // path: issue.path.join(".") || "unknown",
-  //       path: issue.path.join("."),
-  //       // path: issue.path.length > 1 ? issue.path.join(".") : issue.path[0].toString(),
-  //       message: issue.message,
-  //     });
-  //   });
-  // }
 
   if (err instanceof z.ZodError) {
     const simplifiedError = handleZodError(err);
@@ -87,15 +83,8 @@ export const globalErrorHandler = (
     message: message,
     errorSources,
     error: envVars.NODE_ENV === "development" ? err : undefined,
-    stack: envVars.NODE_ENV === 'development' ? stack : undefined,
+    stack: envVars.NODE_ENV === "development" ? stack : undefined,
   };
 
   res.status(statusCode).json(errorResponse);
-  // res.status(statusCode).json({
-  //   success: false,
-  //   message: message,
-  //   errorSources,
-  //   // error: err.message,
-  //   error: envVars.NODE_ENV === "development" ? err : undefined,
-  // });
 };
