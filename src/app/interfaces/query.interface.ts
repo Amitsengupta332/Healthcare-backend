@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 export interface PrismaFindManyArgs {
     where ?: Record<string, unknown>;
     include ?: Record<string, unknown>;
@@ -9,7 +12,6 @@ export interface PrismaFindManyArgs {
     distinct ?: string[] | string;
     [key: string] : unknown;
 }
-
 
 export interface PrismaCountArgs {
     where?: Record<string, unknown>;
