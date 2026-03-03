@@ -1,24 +1,84 @@
 import status from "http-status";
-import { UserStatus } from "../../../generated/prisma";
+import { Doctor, Prisma, UserStatus } from "../../../generated/prisma";
 import AppError from "../../errorHelpers/AppError";
 import { prisma } from "../../lib/prisma";
 import { IUpdateDoctorPayload } from "./doctor.interface";
+import {
+  doctorFilterableFields,
+  doctorIncludeConfig,
+  doctorSearchableFields,
+} from "./doctor.constant";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { IQueryParams } from "../../interfaces/query.interface";
 
-const getAllDoctors = async () => {
-  const doctors = await prisma.doctor.findMany({
-    where: {
+// const getAllDoctors = async () => {
+//   const doctors = await prisma.doctor.findMany({
+//     where: {
+//       isDeleted: false,
+//     },
+//     include: {
+//       user: true,
+//       specialties: {
+//         include: {
+//           specialty: true,
+//         },
+//       },
+//     },
+//   });
+//   return doctors;
+// };
+
+// /doctors?specialty=cardiology&include=doctorSchedules,appointments
+const getAllDoctors = async (query: IQueryParams) => {
+  // const doctors = await prisma.doctor.findMany({
+  //     where: {
+  //         isDeleted: false,
+  //     },
+  //     include: {
+  //         user: true,
+  //         specialties: {
+  //             include: {
+  //                 specialty: true
+  //             }
+  //         }
+  //     }
+  // })
+
+  // // const query = new QueryBuilder().paginate().search().filter();
+  // return doctors;
+
+  const queryBuilder = new QueryBuilder<
+    Doctor,
+    Prisma.DoctorWhereInput,
+    Prisma.DoctorInclude
+  >(prisma.doctor, query, {
+    searchableFields: doctorSearchableFields,
+    filterableFields: doctorFilterableFields,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .where({
       isDeleted: false,
-    },
-    include: {
+    })
+    .include({
       user: true,
+      // specialties: true,
       specialties: {
         include: {
           specialty: true,
         },
       },
-    },
-  });
-  return doctors;
+    })
+    .dynamicInclude(doctorIncludeConfig)
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  console.log(result);
+  return result;
 };
 
 const getDoctorById = async (id: string) => {
