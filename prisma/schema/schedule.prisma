@@ -1,13 +1,24 @@
+// model Schedule {
+//   id              String            @id @default(uuid(7))
+//   startDateTime   DateTime
+//   endDateTime     DateTime
+//   startTime       DateTime
+//   endTime         DateTime
+//   createdAt       DateTime          @default(now())
+//   updatedAt       DateTime          @updatedAt
+//   appointments    Appointment[]
+//   doctorSchedules DoctorSchedules[]
+
+//   @@map("schedules")
+// }
 model Schedule {
   id              String            @id @default(uuid(7))
-  startDate       DateTime
-  endDate         DateTime
-  startTime       DateTime
-  endTime         DateTime
+  startDateTime       DateTime
+  endDateTime         DateTime
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  appointments    Appointment[]
   doctorSchedules DoctorSchedules[]
+  appointments    Appointment[]
 
   @@map("schedules")
 }
