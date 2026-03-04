@@ -28,7 +28,7 @@ router.get(
 router.patch(
   "/:id",
   checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
-//   validateRequest(ScheduleValidation.updateScheduleZodSchema),
+  validateRequest(ScheduleValidation.updateScheduleZodSchema),
   ScheduleController.updateSchedule,
 );
 router.delete(
