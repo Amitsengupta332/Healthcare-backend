@@ -16,22 +16,50 @@ model Admin {
   @@map("admins")
 }
 
+// model Appointment {
+//   id             String            @id @default(uuid(7))
+//   videoCallingId String
+//   status         AppointmentStatus @default(SCHEDULED)
+//   paymentStatus  PaymentStatus     @default(UNPAID)
+//   createdAt      DateTime          @default(now())
+//   updatedAt      DateTime          @updatedAt
+//   patientId      String
+//   doctorId       String
+//   scheduleId     String
+//   doctor         Doctor            @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+//   patient        Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+//   schedule       Schedule          @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+//   payment        Payment?
+//   prescription   Prescription?
+//   review         Review?
+
+//   @@index([patientId])
+//   @@index([doctorId])
+//   @@index([scheduleId])
+//   @@index([status])
+//   @@map("appointments")
+// }
+
 model Appointment {
   id             String            @id @default(uuid(7))
-  videoCallingId String
+  videoCallingId String            @unique @db.Uuid()
   status         AppointmentStatus @default(SCHEDULED)
   paymentStatus  PaymentStatus     @default(UNPAID)
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
-  patientId      String
-  doctorId       String
-  scheduleId     String
-  doctor         Doctor            @relation(fields: [doctorId], references: [id], onDelete: Cascade)
-  patient        Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  schedule       Schedule          @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-  payment        Payment?
-  prescription   Prescription?
-  review         Review?
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  prescription Prescription?
+  review       Review?
+  payment      Payment?
 
   @@index([patientId])
   @@index([doctorId])
@@ -247,16 +275,34 @@ model PatientHealthData {
   @@map("patient_health_data")
 }
 
+// model Payment {
+//   id                 String        @id @default(uuid(7))
+//   amount             Float
+//   transactionId      String        @unique
+//   status             PaymentStatus @default(UNPAID)
+//   paymentGatewayData Json?
+//   createdAt          DateTime      @default(now())
+//   updatedAt          DateTime      @updatedAt
+//   appointmentId      String        @unique
+//   appointment        Appointment   @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+//   @@index([appointmentId])
+//   @@index([transactionId])
+//   @@map("payments")
+// }
+
 model Payment {
   id                 String        @id @default(uuid(7))
   amount             Float
-  transactionId      String        @unique
+  transactionId      String        @unique @db.Uuid()
+  stripeEventId      String?       @unique
   status             PaymentStatus @default(UNPAID)
   paymentGatewayData Json?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
-  appointmentId      String        @unique
-  appointment        Appointment   @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
 
   @@index([appointmentId])
   @@index([transactionId])
