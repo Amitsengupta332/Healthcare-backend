@@ -7,6 +7,9 @@ import { IBookAppointmentPayload } from "./appointment.interface";
 import { v7 as uuidv7 } from "uuid";
 import { AppointmentStatus, PaymentStatus, Role } from "../../../generated/prisma";
 import { stripe } from "../../config/stripe.config";
+
+
+
 // Pay Now Book Appointment
 const bookAppointment = async (payload : IBookAppointmentPayload, user : IRequestUser) => {
    const patientData = await prisma.patient.findUniqueOrThrow({
@@ -63,62 +66,58 @@ const bookAppointment = async (payload : IBookAppointmentPayload, user : IReques
 
         //TODO : Payment Integration will be here
 
-        // const transactionId = String(uuidv7());
+        const transactionId = String(uuidv7());
 
-        // const paymentData = await tx.payment.create({
-        //     data : {
-        //         appointmentId : appointmentData.id,
-        //         amount : doctorData.appointmentFee,
-        //         transactionId
-        //     }
-        // });
+        const paymentData = await tx.payment.create({
+            data : {
+                appointmentId : appointmentData.id,
+                amount : doctorData.appointmentFee,
+                transactionId
+            }
+        });
         
-        // const session = await stripe.checkout.sessions.create({
-        //     payment_method_types: ['card'],
-        //     mode: 'payment',
-        //     line_items :[
-        //         {
-        //             price_data:{
-        //                 currency:"bdt",
-        //                 product_data:{
-        //                     name : `Appointment with Dr. ${doctorData.name}`,
-        //                 },
-        //                 unit_amount : doctorData.appointmentFee * 100,
-        //             },
-        //             quantity : 1,
-        //         }
-        //     ],
-        //     metadata:{
-        //         appointmentId : appointmentData.id,
-        //         paymentId : paymentData.id,
-        //     },
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment',
+            line_items :[
+                {
+                    price_data:{
+                        currency:"bdt",
+                        product_data:{
+                            name : `Appointment with Dr. ${doctorData.name}`,
+                        },
+                        unit_amount : doctorData.appointmentFee * 100,
+                    },
+                    quantity : 1,
+                }
+            ],
+            metadata:{
+                appointmentId : appointmentData.id,
+                paymentId : paymentData.id,
+            },
 
-        //     success_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-success`,
+            success_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-success`,
 
-        //     // cancel_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-failed`,
-        //     cancel_url: `${envVars.FRONTEND_URL}/dashboard/appointments`,
-        // })
+            // cancel_url: `${envVars.FRONTEND_URL}/dashboard/payment/payment-failed`,
+            cancel_url: `${envVars.FRONTEND_URL}/dashboard/appointments`,
+        })
 
-        // return {
-        //     appointmentData,
-        //     paymentData,
-        //     paymentUrl : session.url,
-        // };
-
-        return appointmentData;
+        return {
+            appointmentData,
+            paymentData,
+            paymentUrl : session.url,
+        };
     });
 
-    // return {
-    //     appointment : result.appointmentData,
-    //     payment : result.paymentData,
-    //     paymentUrl : result.paymentUrl,
-    // };
-
-    return result;
+    return {
+        appointment : result.appointmentData,
+        payment : result.paymentData,
+        paymentUrl : result.paymentUrl,
+    };
 }
 
 const getMyAppointments = async (user: IRequestUser) => {
-     //user can be patient or doctor, so we need to check both
+    //user can be patient or doctor, so we need to check both
     const patientData = await prisma.patient.findUnique({
         where: {
             email: user?.email
@@ -158,12 +157,14 @@ const getMyAppointments = async (user: IRequestUser) => {
     }
 
     return appointments;
-};
+
+}
 
 // 1. Completed Or Cancelled Appointments should not be allowed to update status
 // 2. Doctors can only update Appoinment status from schedule to inprogress or inprogress to complted or schedule to cancelled.
 // 3. Patients can only cancel the scheduled appointment if it scheduled not completed or cancelled or inprogress. 
 // 4. Admin and Super admin can update to any status.
+
 const changeAppointmentStatus = async (appointmentId: string, appointmentStatus: AppointmentStatus, user: IRequestUser) => {
     const appointmentData = await prisma.appointment.findUniqueOrThrow({
         where: {
@@ -444,7 +445,6 @@ const cancelUnpaidAppointments = async () => {
         }
     });
 }
-
 
 export const AppointmentService = {
   bookAppointment,
