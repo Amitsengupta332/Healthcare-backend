@@ -55,7 +55,8 @@ import { notFound } from "./app/middleware/notFound";
 import { IndexRoutes } from "./app/routes";
 import qs from "qs";
 import { PaymentController } from "./app/module/payment/payment.controller";
-
+import cron from "node-cron";
+import { AppointmentService } from "./app/module/appointment/appointment.service";
 const app: Application = express();
 app.set("query parser", (str: string) => qs.parse(str));
 
@@ -94,8 +95,20 @@ app.use("/api/auth", toNodeHandler(auth));
 // Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));
 
-//!! Enable URL-encoded form data parsing
+// Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));
+
+cron.schedule("*/25 * * * *", async () => {
+  try {
+    console.log("Running cron job to cancel unpaid appointments...");
+    await AppointmentService.cancelUnpaidAppointments();
+  } catch (error: any) {
+    console.error(
+      "Error occurred while canceling unpaid appointments:",
+      error.message,
+    );
+  }
+});
 
 // Middleware to parse JSON bodies
 app.use(express.json());
