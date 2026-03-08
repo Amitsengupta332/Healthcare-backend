@@ -8,7 +8,7 @@ const givePrescription = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const user = req.user;
   const result = await PrescriptionService.givePrescription(user, payload);
-//   const result = await PrescriptionService.givePrescription();
+  //   const result = await PrescriptionService.givePrescription();
   sendResponse(res, {
     httpStatusCode: httpStatus.OK,
     success: true,
@@ -19,8 +19,8 @@ const givePrescription = catchAsync(async (req: Request, res: Response) => {
 
 const myPrescriptions = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
-  // const result = await PrescriptionService.myPrescriptions(user);
-  const result = await PrescriptionService.myPrescriptions();
+  const result = await PrescriptionService.myPrescriptions(user);
+  //   const result = await PrescriptionService.myPrescriptions();
   sendResponse(res, {
     httpStatusCode: httpStatus.OK,
     success: true,
@@ -43,14 +43,13 @@ const updatePrescription = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
   const prescriptionId = req.params.id;
   const payload = req.body;
-//   const result = await PrescriptionService.updatePrescription(
-//     user,
-//     prescriptionId as string,
-//     payload,
-//   );
   const result = await PrescriptionService.updatePrescription(
- 
+    user,
+    prescriptionId as string,
+    payload,
   );
+  //   const result = await PrescriptionService.updatePrescription(
+  //   );
 
   sendResponse(res, {
     httpStatusCode: httpStatus.OK,
@@ -63,8 +62,8 @@ const updatePrescription = catchAsync(async (req: Request, res: Response) => {
 const deletePrescription = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
   const prescriptionId = req.params.id;
-//   await PrescriptionService.deletePrescription(user, prescriptionId as string);
-  await PrescriptionService.deletePrescription( );
+  await PrescriptionService.deletePrescription(user, prescriptionId as string);
+  //   await PrescriptionService.deletePrescription();
 
   sendResponse(res, {
     httpStatusCode: httpStatus.OK,
