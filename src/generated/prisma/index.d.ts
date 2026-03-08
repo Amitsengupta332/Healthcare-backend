@@ -14532,6 +14532,7 @@ export namespace Prisma {
     transactionId: string | null
     stripeEventId: string | null
     status: $Enums.PaymentStatus | null
+    invoiceUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     appointmentId: string | null
@@ -14543,6 +14544,7 @@ export namespace Prisma {
     transactionId: string | null
     stripeEventId: string | null
     status: $Enums.PaymentStatus | null
+    invoiceUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     appointmentId: string | null
@@ -14554,6 +14556,7 @@ export namespace Prisma {
     transactionId: number
     stripeEventId: number
     status: number
+    invoiceUrl: number
     paymentGatewayData: number
     createdAt: number
     updatedAt: number
@@ -14576,6 +14579,7 @@ export namespace Prisma {
     transactionId?: true
     stripeEventId?: true
     status?: true
+    invoiceUrl?: true
     createdAt?: true
     updatedAt?: true
     appointmentId?: true
@@ -14587,6 +14591,7 @@ export namespace Prisma {
     transactionId?: true
     stripeEventId?: true
     status?: true
+    invoiceUrl?: true
     createdAt?: true
     updatedAt?: true
     appointmentId?: true
@@ -14598,6 +14603,7 @@ export namespace Prisma {
     transactionId?: true
     stripeEventId?: true
     status?: true
+    invoiceUrl?: true
     paymentGatewayData?: true
     createdAt?: true
     updatedAt?: true
@@ -14697,6 +14703,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId: string | null
     status: $Enums.PaymentStatus
+    invoiceUrl: string | null
     paymentGatewayData: JsonValue | null
     createdAt: Date
     updatedAt: Date
@@ -14728,6 +14735,7 @@ export namespace Prisma {
     transactionId?: boolean
     stripeEventId?: boolean
     status?: boolean
+    invoiceUrl?: boolean
     paymentGatewayData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -14741,6 +14749,7 @@ export namespace Prisma {
     transactionId?: boolean
     stripeEventId?: boolean
     status?: boolean
+    invoiceUrl?: boolean
     paymentGatewayData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -14754,6 +14763,7 @@ export namespace Prisma {
     transactionId?: boolean
     stripeEventId?: boolean
     status?: boolean
+    invoiceUrl?: boolean
     paymentGatewayData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -14767,13 +14777,14 @@ export namespace Prisma {
     transactionId?: boolean
     stripeEventId?: boolean
     status?: boolean
+    invoiceUrl?: boolean
     paymentGatewayData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointmentId?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "transactionId" | "stripeEventId" | "status" | "paymentGatewayData" | "createdAt" | "updatedAt" | "appointmentId", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "transactionId" | "stripeEventId" | "status" | "invoiceUrl" | "paymentGatewayData" | "createdAt" | "updatedAt" | "appointmentId", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
   }
@@ -14795,6 +14806,7 @@ export namespace Prisma {
       transactionId: string
       stripeEventId: string | null
       status: $Enums.PaymentStatus
+      invoiceUrl: string | null
       paymentGatewayData: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
@@ -15228,6 +15240,7 @@ export namespace Prisma {
     readonly transactionId: FieldRef<"Payment", 'String'>
     readonly stripeEventId: FieldRef<"Payment", 'String'>
     readonly status: FieldRef<"Payment", 'PaymentStatus'>
+    readonly invoiceUrl: FieldRef<"Payment", 'String'>
     readonly paymentGatewayData: FieldRef<"Payment", 'Json'>
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
     readonly updatedAt: FieldRef<"Payment", 'DateTime'>
@@ -15660,6 +15673,7 @@ export namespace Prisma {
     id: string | null
     followUpDate: Date | null
     instructions: string | null
+    pdfUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     appointmentId: string | null
@@ -15671,6 +15685,7 @@ export namespace Prisma {
     id: string | null
     followUpDate: Date | null
     instructions: string | null
+    pdfUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     appointmentId: string | null
@@ -15682,6 +15697,7 @@ export namespace Prisma {
     id: number
     followUpDate: number
     instructions: number
+    pdfUrl: number
     createdAt: number
     updatedAt: number
     appointmentId: number
@@ -15695,6 +15711,7 @@ export namespace Prisma {
     id?: true
     followUpDate?: true
     instructions?: true
+    pdfUrl?: true
     createdAt?: true
     updatedAt?: true
     appointmentId?: true
@@ -15706,6 +15723,7 @@ export namespace Prisma {
     id?: true
     followUpDate?: true
     instructions?: true
+    pdfUrl?: true
     createdAt?: true
     updatedAt?: true
     appointmentId?: true
@@ -15717,6 +15735,7 @@ export namespace Prisma {
     id?: true
     followUpDate?: true
     instructions?: true
+    pdfUrl?: true
     createdAt?: true
     updatedAt?: true
     appointmentId?: true
@@ -15801,6 +15820,7 @@ export namespace Prisma {
     id: string
     followUpDate: Date
     instructions: string
+    pdfUrl: string | null
     createdAt: Date
     updatedAt: Date
     appointmentId: string
@@ -15829,6 +15849,7 @@ export namespace Prisma {
     id?: boolean
     followUpDate?: boolean
     instructions?: boolean
+    pdfUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointmentId?: boolean
@@ -15843,6 +15864,7 @@ export namespace Prisma {
     id?: boolean
     followUpDate?: boolean
     instructions?: boolean
+    pdfUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointmentId?: boolean
@@ -15857,6 +15879,7 @@ export namespace Prisma {
     id?: boolean
     followUpDate?: boolean
     instructions?: boolean
+    pdfUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointmentId?: boolean
@@ -15871,6 +15894,7 @@ export namespace Prisma {
     id?: boolean
     followUpDate?: boolean
     instructions?: boolean
+    pdfUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointmentId?: boolean
@@ -15878,7 +15902,7 @@ export namespace Prisma {
     doctorId?: boolean
   }
 
-  export type PrescriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "followUpDate" | "instructions" | "createdAt" | "updatedAt" | "appointmentId" | "patientId" | "doctorId", ExtArgs["result"]["prescription"]>
+  export type PrescriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "followUpDate" | "instructions" | "pdfUrl" | "createdAt" | "updatedAt" | "appointmentId" | "patientId" | "doctorId", ExtArgs["result"]["prescription"]>
   export type PrescriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
@@ -15906,6 +15930,7 @@ export namespace Prisma {
       id: string
       followUpDate: Date
       instructions: string
+      pdfUrl: string | null
       createdAt: Date
       updatedAt: Date
       appointmentId: string
@@ -16340,6 +16365,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Prescription", 'String'>
     readonly followUpDate: FieldRef<"Prescription", 'DateTime'>
     readonly instructions: FieldRef<"Prescription", 'String'>
+    readonly pdfUrl: FieldRef<"Prescription", 'String'>
     readonly createdAt: FieldRef<"Prescription", 'DateTime'>
     readonly updatedAt: FieldRef<"Prescription", 'DateTime'>
     readonly appointmentId: FieldRef<"Prescription", 'String'>
@@ -22413,6 +22439,7 @@ export namespace Prisma {
     transactionId: 'transactionId',
     stripeEventId: 'stripeEventId',
     status: 'status',
+    invoiceUrl: 'invoiceUrl',
     paymentGatewayData: 'paymentGatewayData',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -22426,6 +22453,7 @@ export namespace Prisma {
     id: 'id',
     followUpDate: 'followUpDate',
     instructions: 'instructions',
+    pdfUrl: 'pdfUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     appointmentId: 'appointmentId',
@@ -23640,6 +23668,7 @@ export namespace Prisma {
     transactionId?: UuidFilter<"Payment"> | string
     stripeEventId?: StringNullableFilter<"Payment"> | string | null
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
+    invoiceUrl?: StringNullableFilter<"Payment"> | string | null
     paymentGatewayData?: JsonNullableFilter<"Payment">
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
@@ -23653,6 +23682,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     stripeEventId?: SortOrderInput | SortOrder
     status?: SortOrder
+    invoiceUrl?: SortOrderInput | SortOrder
     paymentGatewayData?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23670,6 +23700,7 @@ export namespace Prisma {
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     amount?: FloatFilter<"Payment"> | number
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
+    invoiceUrl?: StringNullableFilter<"Payment"> | string | null
     paymentGatewayData?: JsonNullableFilter<"Payment">
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
@@ -23682,6 +23713,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     stripeEventId?: SortOrderInput | SortOrder
     status?: SortOrder
+    invoiceUrl?: SortOrderInput | SortOrder
     paymentGatewayData?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23702,6 +23734,7 @@ export namespace Prisma {
     transactionId?: UuidWithAggregatesFilter<"Payment"> | string
     stripeEventId?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     status?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
+    invoiceUrl?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     paymentGatewayData?: JsonNullableWithAggregatesFilter<"Payment">
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
@@ -23715,6 +23748,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     followUpDate?: DateTimeFilter<"Prescription"> | Date | string
     instructions?: StringFilter<"Prescription"> | string
+    pdfUrl?: StringNullableFilter<"Prescription"> | string | null
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
     appointmentId?: StringFilter<"Prescription"> | string
@@ -23729,6 +23763,7 @@ export namespace Prisma {
     id?: SortOrder
     followUpDate?: SortOrder
     instructions?: SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -23747,6 +23782,7 @@ export namespace Prisma {
     NOT?: PrescriptionWhereInput | PrescriptionWhereInput[]
     followUpDate?: DateTimeFilter<"Prescription"> | Date | string
     instructions?: StringFilter<"Prescription"> | string
+    pdfUrl?: StringNullableFilter<"Prescription"> | string | null
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
     patientId?: StringFilter<"Prescription"> | string
@@ -23760,6 +23796,7 @@ export namespace Prisma {
     id?: SortOrder
     followUpDate?: SortOrder
     instructions?: SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -23777,6 +23814,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Prescription"> | string
     followUpDate?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
     instructions?: StringWithAggregatesFilter<"Prescription"> | string
+    pdfUrl?: StringNullableWithAggregatesFilter<"Prescription"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
     appointmentId?: StringWithAggregatesFilter<"Prescription"> | string
@@ -25174,6 +25212,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId?: string | null
     status?: $Enums.PaymentStatus
+    invoiceUrl?: string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25186,6 +25225,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId?: string | null
     status?: $Enums.PaymentStatus
+    invoiceUrl?: string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25198,6 +25238,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25210,6 +25251,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25222,6 +25264,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId?: string | null
     status?: $Enums.PaymentStatus
+    invoiceUrl?: string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25234,6 +25277,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25245,6 +25289,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25255,6 +25300,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment: AppointmentCreateNestedOneWithoutPrescriptionInput
@@ -25266,6 +25312,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -25277,6 +25324,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -25288,6 +25336,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string
@@ -25299,6 +25348,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -25310,6 +25360,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25318,6 +25369,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string
@@ -26568,6 +26620,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     stripeEventId?: SortOrder
     status?: SortOrder
+    invoiceUrl?: SortOrder
     paymentGatewayData?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26584,6 +26637,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     stripeEventId?: SortOrder
     status?: SortOrder
+    invoiceUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -26595,6 +26649,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     stripeEventId?: SortOrder
     status?: SortOrder
+    invoiceUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -26634,6 +26689,7 @@ export namespace Prisma {
     id?: SortOrder
     followUpDate?: SortOrder
     instructions?: SortOrder
+    pdfUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -26645,6 +26701,7 @@ export namespace Prisma {
     id?: SortOrder
     followUpDate?: SortOrder
     instructions?: SortOrder
+    pdfUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -26656,6 +26713,7 @@ export namespace Prisma {
     id?: SortOrder
     followUpDate?: SortOrder
     instructions?: SortOrder
+    pdfUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointmentId?: SortOrder
@@ -28541,6 +28599,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     doctor: DoctorCreateNestedOneWithoutPrescriptionsInput
@@ -28551,6 +28610,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     patientId: string
@@ -28593,6 +28653,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId?: string | null
     status?: $Enums.PaymentStatus
+    invoiceUrl?: string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28604,6 +28665,7 @@ export namespace Prisma {
     transactionId: string
     stripeEventId?: string | null
     status?: $Enums.PaymentStatus
+    invoiceUrl?: string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28768,6 +28830,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctor?: DoctorUpdateOneRequiredWithoutPrescriptionsNestedInput
@@ -28778,6 +28841,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     patientId?: StringFieldUpdateOperationsInput | string
@@ -28832,6 +28896,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28843,6 +28908,7 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     stripeEventId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     paymentGatewayData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29568,6 +29634,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment: AppointmentCreateNestedOneWithoutPrescriptionInput
@@ -29578,6 +29645,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -29779,6 +29847,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     followUpDate?: DateTimeFilter<"Prescription"> | Date | string
     instructions?: StringFilter<"Prescription"> | string
+    pdfUrl?: StringNullableFilter<"Prescription"> | string | null
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
     appointmentId?: StringFilter<"Prescription"> | string
@@ -30064,6 +30133,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment: AppointmentCreateNestedOneWithoutPrescriptionInput
@@ -30074,6 +30144,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -31629,6 +31700,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -31724,6 +31796,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -31734,6 +31807,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string
@@ -31744,6 +31818,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string
@@ -31803,6 +31878,7 @@ export namespace Prisma {
     id?: string
     followUpDate: Date | string
     instructions: string
+    pdfUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointmentId: string
@@ -31886,6 +31962,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -31896,6 +31973,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string
@@ -31906,6 +31984,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followUpDate?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: StringFieldUpdateOperationsInput | string
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointmentId?: StringFieldUpdateOperationsInput | string

@@ -29,8 +29,8 @@ const getAllReviews = catchAsync(async (req: Request, res: Response) => {
 
 const myReviews = catchAsync(async (req: Request, res: Response) => {
     const user = req.user;
-    const result = await ReviewService.myReviews();
-    // const result = await ReviewService.myReviews(user);
+    // const result = await ReviewService.myReviews();
+    const result = await ReviewService.myReviews(user);
     sendResponse(res, {
         httpStatusCode: httpStatus.OK,
         success: true,
@@ -45,8 +45,8 @@ const updateReview = catchAsync(async (req: Request, res: Response) => {
     const reviewId = req.params.id;
     const payload = req.body;
 
-    const result = await ReviewService.updateReview( );
-    // const result = await ReviewService.updateReview(user, reviewId as string, payload);
+    // const result = await ReviewService.updateReview( );
+     const result = await ReviewService.updateReview(user, reviewId as string, payload);
     sendResponse(res, {
         httpStatusCode: httpStatus.OK,
         success: true,
@@ -59,8 +59,8 @@ const updateReview = catchAsync(async (req: Request, res: Response) => {
 const deleteReview = catchAsync(async (req: Request, res: Response) => {
     const user = req.user;
     const reviewId = req.params.id;
-    // const result = await ReviewService.deleteReview(user, reviewId as string);
-    const result = await ReviewService.deleteReview( );
+    const result = await ReviewService.deleteReview(user, reviewId as string);
+    // const result = await ReviewService.deleteReview( );
     sendResponse(res, {
         httpStatusCode: httpStatus.OK,
         success: true,
